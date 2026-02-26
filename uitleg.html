@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Makelaar Handleiding - LS Properties</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .uitleg-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+      color: white;
+      font-family: sans-serif;
+    }
+    .tab-menu {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .tab-button {
+      padding: 12px 20px;
+      background: #333;
+      color: white;
+      border: 2px solid #ffcc00;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .tab-button:hover, .tab-button.active {
+      background: #ffcc00;
+      color: black;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .step-box {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-left: 5px solid #ffcc00;
+    }
+    .step-item {
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .step-grid {
+      display: flex;
+      align-items: flex-start;
+      gap: 25px;
+      margin-top: 15px;
+    }
+    .step-grid img {
+      max-width: 450px;
+      border-radius: 5px;
+      border: 1px solid #444;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    .step-text { flex: 1; }
+    .step-text h3 { color: #ffcc00; margin-top: 0; }
+    code {
+      background: #333;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #ffcc00;
+    }
+    .next-step-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 15px 30px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: 0.3s;
+    }
+    .next-step-btn:hover { background: #218838; transform: scale(1.02); }
+    @media (max-width: 850px) {
+      .step-grid { flex-direction: column; }
+      .step-grid img { max-width: 100%; }
+    }
+  </style>
+</head>
+<body class="content-body">
+  <main class="uitleg-container">
+    <h1>Makelaar Handleiding</h1>
+
+    <div class="tab-menu" id="mainTabMenu">
+      <button class="tab-button active" data-tab="eigendom" onclick="openTab(event, 'eigendom')">🏠 Eigendommen</button>
+      <button class="tab-button" data-tab="garage" onclick="openTab(event, 'garage')">🚗 Garages</button>
+      <button class="tab-button" data-tab="stash" onclick="openTab(event, 'stash')">⚖️ Stash Verhoging</button>
+      <button class="tab-button" data-tab="tuin" onclick="openTab(event, 'tuin')">🌳 Tuinzones</button>
+      <button class="tab-button" data-tab="opslag" onclick="openTab(event, 'opslag')">🏢 Gang/Bedrijven opslag</button>
+    </div>
+
+    <div id="eigendom" class="tab-content active">
+      <section class="step-box">
+        <h2>Nieuw Eigendom Creëren</h2>
+        <div class="step-item">
+          <div class="step-grid">
+            <div class="step-text">
+              <h3>Stap 1: Type & Interactie</h3>
+              <ul>
+                <li>Gebruik <code>/createproperty</code>.</li>
+                <li>Type: <strong>Shell</strong>.</li>
+                <li>Interactiepunten: <strong>inventory</strong> en <strong>clothingmenu</strong>.</li>
+                <li>Eigendomstype: <strong>House</strong>.</li>
+              </ul>
+            </div>
+            <img src="img/handleiding/createproperty 1.png" alt="Stap 1">
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-grid">
+            <img src="img/handleiding/createproperty 2.png" alt="Stap 2">
+            <div class="step-text">
+              <h3>Stap 2: Coördinaten & Shell</h3>
+              <ul>
+                <li>Stel <strong>Ingangspunt</strong> en <strong>Uitgangspunt</strong> in.</li>
+                <li>Kies de gewenste <strong>Shell</strong>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="step-item" style="border-bottom: none;">
+          <div class="step-grid">
+            <div class="step-text">
+              <h3>Stap 3: Naam, Prijs & Voltooien</h3>
+              <ul>
+                <li><strong>Naam:</strong> Vraag de koper naar de gewenste naam.</li>
+                <li><strong>Beschrijving:</strong> plaats 5 spaties.</li>
+                <li><strong>Prijs:</strong> Voer de prijs in en vink <strong>Te koop</strong> aan.</li>
+                <li><strong>Prijs:</strong> Laat de koper de eigendom aankopen aan de <strong>deur/garage</strong> </li>
+              </ul>
+            </div>
+            <img src="img/handleiding/createproperty 3.png" alt="Stap 3">
+          </div>
+        </div>
+        <div style="text-align: right; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+          <button class="next-step-btn" onclick="openTab(null, 'garage')">Volgende: Garage Instellen ➔</button>
+        </div>
+      </section>
+    </div>
+
+    <div id="garage" class="tab-content">
+      <section class="step-box">
+        <h2>Privégarage aanmaken (/privategarage)</h2>
+        <div class="step-item">
+            <div class="step-grid">
+              <div class="step-text">
+                <p>Gebruik <code>/privategarage</code> en klik op <strong>Privégarage criëren</strong>.</p>
+              </div>
+              <img src="img/handleiding/garage 1.png" alt="Garage Stap 1">
+            </div>
+        </div>
+        <div class="step-item" style="border-bottom: none;">
+            <div class="step-grid">
+              <img src="img/handleiding/garage 2.png" alt="Garage Stap 2">
+              <div class="step-text">
+                <p>klik op <strong>Get Location</strong> voor de positie.</p>
+                <p>Voeg de eigenaar toe. Gebruik <code>/garageowner [id]</code> voor eigenaarschap en <code>/geefgaragekey [id]</code> voor toegang.</p>
+              </div>
+            </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="stash" class="tab-content">
+      <section class="step-box">
+        <h2>Stash Verhoging / Upgrade</h2>
+        <div class="step-item">
+          <div class="step-grid">
+            <div class="step-text">
+              <p>Voor het upgraden van opslagruimte:</p>
+              <ul>
+                <li>Open de lijst met <code>/allproperties</code>.</li>
+                <li>Zoek het eigendom op naam via de zoekbalk.</li>
+                <li>klik op de <strong>Pen</strong> om te bewerken.</li>
+              </ul>
+            </div>
+            <img src="img/handleiding/allproperties 1.png" alt="Stash Upgrade Stap 1">
+          </div>
+        </div>
+        <div class="step-item" style="border-bottom: none;">
+          <div class="step-grid">
+            <img src="img/handleiding/allproperties 2.png" alt="Stash Upgrade Stap 2">
+            <div class="step-text">
+              <ul>
+                <li>Pas de <strong>Slots</strong> en het <strong>Gewicht</strong> aan (bijv. 800000 voor 800kg).</li>
+                <li>Sla op via <strong>Werk Inventaris Bij</strong>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="tuin" class="tab-content">
+      <section class="step-box">
+        <h2>Tuinzone Aanmaken</h2>
+        <div class="step-item">
+          <div class="step-grid">
+            <div class="step-text">
+              <h3>Stap 1: Selecteren</h3>
+              <ul>
+                <li>Gebruik <code>/allproperties</code> en zoek het eigendom op.</li>
+                <li>klik op de <strong>Pen</strong> om te bewerken.</li>
+                <li>Klik op <strong>Tuinzone Aanmaken</strong> in het menu.</li>
+              </ul>
+            </div>
+            <img src="img/handleiding/tuin 1.png" alt="Tuin Stap 1">
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-grid">
+            <img src="img/handleiding/tuin 2.png" alt="Tuin Stap 2">
+            <div class="step-text">
+              <h3>Stap 2: Tekenen</h3>
+              <ul>
+                <li>Plaats punten rondom de tuin met <strong>LMB</strong>.</li>
+                <li>Zorg dat de lijn het hele gebied omsluit.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="step-item" style="border-bottom: none;">
+          <div class="step-grid">
+            <div class="step-text">
+              <h3>Stap 3: Afronden</h3>
+              <ul>
+                <li>Navigeer met <strong>WASD</strong> en pas hoogte aan met <strong>Q / E</strong>.</li>
+                <li>Druk op <strong>ENTER</strong> om de zone definitief op te slaan.</li>
+              </ul>
+            </div>
+            <img src="img/handleiding/tuin 3.png" alt="Tuin Stap 3">
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="opslag" class="tab-content">
+      <section class="step-box">
+        <h2>Gang / Bedrijven Opslag (/locker)</h2>
+        <div class="step-grid">
+          <img src="img/handleiding/opslag.png" alt="Opslag">
+          <div class="step-text">
+            <p>Gebruik <code>/locker</code> voor nieuwe zakelijke kluizen:</p>
+            <ul>
+              <li><strong>Naam:</strong> Eén woord in kleine letters.</li>
+              <li><strong>Grootte:</strong> Gewicht in KG (bijv. 3000 voor 3000kg).</li>
+              <li><em>Let op: De instellingen kunnen na plaatsing niet worden gewijzigd.</em></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px; margin-bottom: 50px;">
+      <a href="index.html" class="tab-button" style="text-decoration: none;">🏠 Terug naar Dashboard</a>
+    </div>
+  </main>
+
+  <script>
+    function openTab(evt, tabName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tab-content");
+      for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; }
+      tablinks = document.getElementsByClassName("tab-button");
+      for (i = 0; i < tablinks.length; i++) { tablinks[i].classList.remove("active"); }
+      document.getElementById(tabName).style.display = "block";
+      if (evt) { evt.currentTarget.classList.add("active"); }
+      else { document.querySelector('[data-tab="' + tabName + '"]').classList.add("active"); }
+      window.scrollTo(0,0);
+    }
+  </script>
+</body>
+</html>
