@@ -82,6 +82,9 @@
       transition: 0.3s;
     }
     .next-step-btn:hover { background: #218838; transform: scale(1.02); }
+    
+    .muted { color: #aaa; margin-top: 5px; }
+
     @media (max-width: 850px) {
       .step-grid { flex-direction: column; }
       .step-grid img { max-width: 100%; }
@@ -89,9 +92,22 @@
   </style>
 </head>
 <body class="content-body">
-  <main class="uitleg-container">
-    <h1>Makelaar Handleiding</h1>
 
+  <header class="hero" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 30px 0;">
+    <div class="home-logo" style="margin-bottom: 15px;">
+      <a href="index.html">
+        <img src="logo.png" alt="LS Properties logo" style="width: 180px; max-width: 80%;">
+      </a>
+    </div>
+    <div class="brand" style="justify-content: center; width: 100%;">
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <h1 style="font-size: 28px; color: white;">Handleiding</h1>
+      </div>
+    </div>
+  </header>
+
+  <main class="uitleg-container">
+    
     <div class="tab-menu" id="mainTabMenu">
       <button class="tab-button active" data-tab="eigendom" onclick="openTab(event, 'eigendom')">🏠 Eigendommen</button>
       <button class="tab-button" data-tab="garage" onclick="openTab(event, 'garage')">🚗 Garages</button>
@@ -262,10 +278,19 @@
       </section>
     </div>
 
-    <div style="text-align: center; margin-top: 30px; margin-bottom: 50px;">
+    <div style="text-align: center; margin-top: 30px; margin-bottom: 20px;">
       <a href="index.html" class="tab-button" style="text-decoration: none;">🏠 Terug naar Dashboard</a>
     </div>
   </main>
+
+  <footer style="margin-top: 50px; padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
+    <p style="color: #888; font-size: 0.9em; font-family: sans-serif;">
+      Deze tool is ontwikkeld door <strong>Drijkes</strong> 
+      <span style="margin: 0 8px; color: #ffcc00;">|</span> 
+      In samenwerking met <strong>Gemini AI</strong>
+    </p>
+    <p style="color: #555; font-size: 0.8em; margin-top: 5px;">&copy; 2026 LS Properties Toolset</p>
+  </footer>
 
   <script>
     function openTab(evt, tabName) {
