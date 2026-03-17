@@ -1,8 +1,12 @@
-const fmtEUR = (n) =>
-  new Intl.NumberFormat("nl-BE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
+const fmtEUR = (n) => new Intl.NumberFormat("nl-BE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
 
-const STASH_MAX_KG = 3000;
 const PRICE_PER_100KG = 2500;
+let selectedStars = 0;
+let locationMultiplier = 0;
+let locationText = "Klasse 5: Achterbuurt (0%)";
+let applyDiscount = false;
+
+const starMultipliers = { 0: 0, 1: 0.05, 2: 0.15, 3: 0.25 };
 
 const shells = [
   { label: "envi_shell_03_empty", price: 35000, kilos: 400, floors: 1 },
@@ -40,92 +44,117 @@ const shells = [
   { label: "Warehouse Industry", price: 55000, kilos: 1600, floors: 1, manualKg: true },
   { label: "Garage", price: 75000, kilos: 2000, floors: 1, manualKg: true },
   { label: "Container", price: 10000, kilos: 200, floors: 1 },
-  { label: "Trailer", price: 15000, kilos: 200, floors: 1 },
+  { label: "Trailer", price: 15000, kilos: 200, floors: 1 }
 ];
 
 const tuinen = [
   { label: "Geen tuin", price: 0 },
   { label: "Klein tuin", price: 10000 },
+  { label: "Klein tuin met zwembad", price: 25000 },
   { label: "Middel tuin", price: 30000 },
   { label: "Middel tuin met zwembad", price: 50000 },
   { label: "Grote tuin", price: 75000 },
   { label: "Grote tuin met zwembad", price: 100000 },
   { label: "Hele grote tuin", price: 150000 },
-  { label: "Hele grote tuin met alles", price: 200000 },
+  { label: "Hele grote tuin met alles", price: 200000 }
 ];
 
-function fillSelect(select, items, formatter) {
-  select.innerHTML = "";
-  items.forEach((it, idx) => {
-    const opt = document.createElement("option");
-    opt.value = String(idx);
-    opt.textContent = formatter ? formatter(it) : it.label;
-    select.appendChild(opt);
-  });
-}
-
 function recalc() {
-  const shellIdx = Number(document.getElementById("shellSelect").value || 0);
-  const tuinIdx = Number(document.getElementById("tuinSelect").value || 0);
-  const shell = shells[shellIdx] || shells[0];
-  const tuin = tuinen[tuinIdx] || tuinen[0];
-
-  // KG Waarschuwing logica
-  const warningEl = document.getElementById("kgWarningCard");
-  warningEl.style.display = shell.manualKg ? "block" : "none";
-
+  const shellIdx = document.getElementById("shellSelect").value || 0;
+  const tuinIdx = document.getElementById("tuinSelect").value || 0;
+  const shell = shells[shellIdx];
+  const tuin = tuinen[tuinIdx];
+  
   const baseKg = shell.kilos;
-  const targetKgInput = document.getElementById("stashTargetKg");
-  let targetKg = Number(targetKgInput.value);
-  if (targetKg > STASH_MAX_KG) { targetKg = STASH_MAX_KG; targetKgInput.value = STASH_MAX_KG; }
-
-  const enable = document.getElementById("enableStashUpgrade").checked;
-  const extraKg = enable ? Math.max(0, targetKg - baseKg) : 0;
+  const targetKg = Number(document.getElementById("stashTargetKg").value);
+  const enableStash = document.getElementById("enableStashUpgrade").checked;
+  const extraKg = (enableStash && targetKg > baseKg) ? targetKg - baseKg : 0;
   const stashCost = (extraKg / 100) * PRICE_PER_100KG;
 
-  const totaal = shell.price + tuin.price + stashCost;
+  const basisBedrag = shell.price + tuin.price;
+  const toeslagLocatie = basisBedrag * locationMultiplier;
+  const toeslagLuxe = basisBedrag * starMultipliers[selectedStars];
+  
+  // Bereken subtotaal van alle kosten
+  let totaal = basisBedrag + toeslagLocatie + toeslagLuxe + stashCost;
 
-  // UI Updates
+  // Pas korting toe op het volledige totaal
+  let kortingBedrag = 0;
+  if (applyDiscount) {
+    kortingBedrag = totaal * 0.10;
+    totaal = totaal - kortingBedrag;
+  }
+
+  // Update de interface
   document.getElementById("huisPrijs").textContent = fmtEUR(shell.price);
   document.getElementById("tuinPrijs").textContent = fmtEUR(tuin.price);
-  document.getElementById("stashBaseKg").textContent = baseKg;
-  document.getElementById("stashExtraKg").textContent = extraKg;
+  if(document.getElementById("locatiePrijs")) document.getElementById("locatiePrijs").textContent = fmtEUR(toeslagLocatie);
+  if(document.getElementById("luxePrijs")) document.getElementById("luxePrijs").textContent = fmtEUR(toeslagLuxe);
   document.getElementById("stashUpgradePrice").textContent = fmtEUR(stashCost);
+  if(document.getElementById("kortingPrijs")) document.getElementById("kortingPrijs").textContent = applyDiscount ? `-${fmtEUR(kortingBedrag)}` : "€ 0";
   document.getElementById("totaalPrijs").textContent = fmtEUR(totaal);
+  
+  document.getElementById("locationLabel").textContent = locationText;
+  document.getElementById("starLabel").textContent = `${selectedStars === 0 ? 'Standaard afwerking' : selectedStars + ' Sterren'} (+${starMultipliers[selectedStars] * 100}%)`;
+  document.getElementById("kgWarningCard").style.display = shell.manualKg ? "block" : "none";
 
-  // Samenvatting text
-  let summary = `LS Properties — Aankoop\n\nShell: ${shell.label} (${fmtEUR(shell.price)})\nTuin: ${tuin.label} (${fmtEUR(tuin.price)})\nStash Basis: ${baseKg}kg\n`;
-  if (enable) summary += `Extra Stash: +${extraKg}kg (${fmtEUR(stashCost)})\n`;
-  if (shell.manualKg) summary += `\n⚠️ LET OP: KG HANDMATIG AANPASSEN!`;
-  summary += `\n\nTOTAAL: ${fmtEUR(totaal)}`;
+  // --- CONCEPT OFFERTE ---
+  let summary = `🏠 LS PROPERTIES — OFFERTE\n`;
+  summary += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+  summary += `PRODUCTEN:\n• Shell: ${shell.label} (${fmtEUR(shell.price)})\n• Tuin: ${tuin.label} (${fmtEUR(tuin.price)})\n\n`;
+  summary += `CONFIGURATIE:\n• Locatie: ${locationText}\n• Afwerking: ${selectedStars === 0 ? 'Standaard' : '★'.repeat(selectedStars)}\n• Stash: ${enableStash ? targetKg : baseKg}kg (Basis: ${baseKg}kg)\n\n`;
+  summary += `KOSTENUITSPLITSING:\n• Subtotaal Huis/Tuin: ${fmtEUR(basisBedrag)}\n`;
+  if (toeslagLocatie > 0) summary += `• Locatie toeslag: ${fmtEUR(toeslagLocatie)}\n`;
+  if (toeslagLuxe > 0) summary += `• Luxe afwerking: ${fmtEUR(toeslagLuxe)}\n`;
+  if (stashCost > 0) summary += `• Stash upgrade (+${extraKg}kg): ${fmtEUR(stashCost)}\n`;
+  if (applyDiscount) summary += `• Korting (10% over totaal): -${fmtEUR(kortingBedrag)}\n`;
+  summary += `\n━━━━━━━━━━━━━━━━━━━━\nTOTAL: ${fmtEUR(totaal)}\n━━━━━━━━━━━━━━━━━━━━`;
   
   document.getElementById("msgBuy").value = summary;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  fillSelect(document.getElementById("shellSelect"), shells, s => `${s.label} (${fmtEUR(s.price)})`);
-  fillSelect(document.getElementById("tuinSelect"), tuinen, t => `${t.label} (${fmtEUR(t.price)})`);
+  const sSel = document.getElementById("shellSelect");
+  const tSel = document.getElementById("tuinSelect");
+  shells.forEach((s, i) => sSel.add(new Option(`${s.label} (${fmtEUR(s.price)})`, i)));
+  tuinen.forEach((t, i) => tSel.add(new Option(`${t.label} (${fmtEUR(t.price)})`, i)));
 
-  const inputs = ["shellSelect", "tuinSelect", "enableStashUpgrade", "stashTargetKg"];
-  inputs.forEach(id => document.getElementById(id).addEventListener("change", recalc));
+  document.querySelectorAll("select, input").forEach(el => el.addEventListener("change", recalc));
   document.getElementById("stashTargetKg").addEventListener("input", recalc);
 
-  document.getElementById("resetBuyBtn").addEventListener("click", () => {
-    document.getElementById("shellSelect").selectedIndex = 0;
-    document.getElementById("tuinSelect").selectedIndex = 0;
-    document.getElementById("enableStashUpgrade").checked = false;
-    document.getElementById("stashTargetKg").value = 1000;
+  document.querySelectorAll(".star").forEach(s => s.addEventListener("click", () => {
+    selectedStars = parseInt(s.dataset.value);
+    document.querySelectorAll(".star").forEach(st => st.classList.toggle("active", parseInt(st.dataset.value) <= selectedStars));
     recalc();
-  });
+  }));
+
+  document.querySelectorAll(".loc-btn").forEach(btn => btn.addEventListener("click", () => {
+    document.querySelectorAll(".loc-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    locationMultiplier = parseFloat(btn.dataset.multiplier);
+    locationText = btn.dataset.label;
+    recalc();
+  }));
+
+  const discBtn = document.getElementById("discountBtn");
+  if(discBtn) {
+    discBtn.addEventListener("click", () => {
+      applyDiscount = !applyDiscount;
+      discBtn.style.background = applyDiscount ? "#16a34a" : "#334155";
+      discBtn.textContent = applyDiscount ? "Korting Geactiveerd (10%)" : "Pas 10% Korting Toe";
+      recalc();
+    });
+  }
 
   document.getElementById("copyBuyBtn").addEventListener("click", () => {
     const ta = document.getElementById("msgBuy");
     ta.select();
     document.execCommand("copy");
-    const toast = document.getElementById("copyBuyToast");
-    toast.style.display = "inline";
-    setTimeout(() => toast.style.display = "none", 1500);
+    const btn = document.getElementById("copyBuyBtn");
+    btn.textContent = "Gekopieerd!";
+    setTimeout(() => btn.textContent = "Kopieer Offerte", 2000);
   });
 
+  document.getElementById("resetBuyBtn").addEventListener("click", () => location.reload());
   recalc();
 });
