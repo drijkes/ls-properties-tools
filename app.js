@@ -125,11 +125,20 @@ const shellData = [
     images: ["Max Luxury Appartment - 200K.png", "Max Luxury Appartment - 200K (2).png"] 
   },
   { 
+
     name: "Apartment Unfurnished Custom", 
+
     price: 250000, 
+
     floors: 1, 
-    images: ["Apartment Unfurnished - 55K.png", "Apartment Unfurnished - 55K (2).png", "Apartment Unfurnished - 55K (3).png", "Apartment Unfurnished - 55K (4).png", "Apartment Unfurnished - 55K (5).png", "Apartment Unfurnished - 55K (6).png", "Apartment Unfurnished - 55K (7).png", "Apartment Unfurnished - 55K (8).png", "Apartment Unfurnished - 55K (9).png"] 
+
+    images: ["Apartment Unfurnished Custom - 250K.png", "Apartment Unfurnished Custom - 250K (2).png", "Apartment Unfurnished Custom - 250K (3).png.png", "Apartment Unfurnished Custom - 250K (4).png", "Apartment Unfurnished Custom - 250K (5).png", "Apartment Unfurnished Custom - 250K (6).png", "Apartment Unfurnished Custom - 250K (7).png", "Apartment Unfurnished Custom - 250K (8).png", "Apartment Unfurnished Custom - 250K (9).png"] 
+
   },
+
+
+
+
   { 
     name: "Max Unfurnished Shell 4", 
     price: 350000, 
