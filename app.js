@@ -128,7 +128,7 @@ const shellData = [
     name: "Apartment Unfurnished Custom", 
     price: 250000, 
     floors: 1, 
-    images: ["Apartment Unfurnished - 55K.png", "Apartment Unfurnished - 55K (2).png"] 
+    images: ["Apartment Unfurnished - 55K.png", "Apartment Unfurnished - 55K (2).png", "Apartment Unfurnished - 55K (3).png", "Apartment Unfurnished - 55K (4).png", "Apartment Unfurnished - 55K (5).png", "Apartment Unfurnished - 55K (6).png", "Apartment Unfurnished - 55K (7).png", "Apartment Unfurnished - 55K (8).png", "Apartment Unfurnished - 55K (9).png"] 
   },
   { 
     name: "Max Unfurnished Shell 4", 
