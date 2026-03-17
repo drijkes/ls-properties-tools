@@ -132,7 +132,7 @@ const shellData = [
 
     floors: 1, 
 
-    images: ["Apartment Unfurnished Custom - 250K.png", "Apartment Unfurnished Custom - 250K (2).png", "Apartment Unfurnished Custom - 250K (3).png.png", "Apartment Unfurnished Custom - 250K (4).png", "Apartment Unfurnished Custom - 250K (5).png", "Apartment Unfurnished Custom - 250K (6).png", "Apartment Unfurnished Custom - 250K (7).png", "Apartment Unfurnished Custom - 250K (8).png", "Apartment Unfurnished Custom - 250K (9).png"] 
+    images: ["Apartment Unfurnished Custom - 250K.png", "Apartment Unfurnished Custom - 250K (2).png", "Apartment Unfurnished Custom - 250K (3).png", "Apartment Unfurnished Custom - 250K (4).png", "Apartment Unfurnished Custom - 250K (5).png", "Apartment Unfurnished Custom - 250K (6).png", "Apartment Unfurnished Custom - 250K (7).png", "Apartment Unfurnished Custom - 250K (8).png", "Apartment Unfurnished Custom - 250K (9).png"] 
 
   },
 
