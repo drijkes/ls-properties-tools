@@ -75,10 +75,8 @@ function recalc() {
   const toeslagLocatie = basisBedrag * locationMultiplier;
   const toeslagLuxe = basisBedrag * starMultipliers[selectedStars];
   
-  // Bereken subtotaal van alle kosten
   let totaal = basisBedrag + toeslagLocatie + toeslagLuxe + stashCost;
 
-  // Pas korting toe op het volledige totaal
   let kortingBedrag = 0;
   if (applyDiscount) {
     kortingBedrag = totaal * 0.10;
@@ -90,7 +88,13 @@ function recalc() {
   document.getElementById("tuinPrijs").textContent = fmtEUR(tuin.price);
   if(document.getElementById("locatiePrijs")) document.getElementById("locatiePrijs").textContent = fmtEUR(toeslagLocatie);
   if(document.getElementById("luxePrijs")) document.getElementById("luxePrijs").textContent = fmtEUR(toeslagLuxe);
+  
+  // BIJGEWERKTE STASH UI
+  document.getElementById("stashBasisDisplay").textContent = baseKg;
+  document.getElementById("stashExtraDisplay").textContent = extraKg;
+  document.getElementById("stashInfoLabel").textContent = `Upgrade kost: ${fmtEUR(stashCost)}`;
   document.getElementById("stashUpgradePrice").textContent = fmtEUR(stashCost);
+
   if(document.getElementById("kortingPrijs")) document.getElementById("kortingPrijs").textContent = applyDiscount ? `-${fmtEUR(kortingBedrag)}` : "€ 0";
   document.getElementById("totaalPrijs").textContent = fmtEUR(totaal);
   
