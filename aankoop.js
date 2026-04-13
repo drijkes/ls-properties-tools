@@ -1,6 +1,6 @@
 const fmtEUR = (n) => new Intl.NumberFormat("nl-BE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
 
-const PRICE_PER_100KG = 2500;
+const PRICE_PER_100KG = 5000;
 let selectedStars = 0;
 let locationMultiplier = 0;
 let locationText = "Klasse 5: Achterbuurt (0%)";
