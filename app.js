@@ -49,7 +49,7 @@ function resetAll() {
 
   if (curKg) curKg.value = 0;
   if (targetKg) targetKg.value = 0;
-  if (pricePer100) pricePer100.value = 2500;
+  if (pricePer100) pricePer100.value = 5000;
 
   recalcKg();
 }

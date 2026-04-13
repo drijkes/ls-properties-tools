@@ -40,9 +40,8 @@ const shells = [
   { label: "Deluxe Housing 3", price: 1000000, kilos: 600, floors: 2 },
   { label: "Office", price: 20000, kilos: 200, floors: 1 },
   { label: "Warehouse", price: 25000, kilos: 600, floors: 1, manualKg: true },
-  { label: "Warehouse 2", price: 35000, kilos: 1000, floors: 1 },
-  { label: "Warehouse Industry", price: 55000, kilos: 1600, floors: 1, manualKg: true },
-  { label: "Garage", price: 75000, kilos: 2000, floors: 1, manualKg: true },
+  { label: "Warehouse 2", price: 35000, kilos: 600, floors: 1, manualKg: true  },
+  { label: "Garage", price: 50000, kilos: 600, floors: 1, manualKg: true },
   { label: "Container", price: 10000, kilos: 200, floors: 1 },
   { label: "Trailer", price: 15000, kilos: 200, floors: 1 }
 ];
