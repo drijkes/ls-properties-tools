@@ -59,6 +59,24 @@ function resetAll() {
 /* ========================== */
 const shellData = [
   { 
+    name: "Kleine Loods", 
+    price: 35000, 
+    floors: 1, 
+    images: ["Kleine_Loods1.png"] // Voorbeeld met 2 foto's
+  },
+  { 
+    name: "Middel Loods", 
+    price: 75000, 
+    floors: 1, 
+    images: ["Middel_Loods1.png", "Middel_Loods2.png", "Middel_Loods3.png"] // Voorbeeld met 2 foto's
+  },
+  { 
+    name: "Grote Loods", 
+    price: 150000, 
+    floors: 2, 
+    images: ["Grote_Loods1.png", "Grote_Loods2.png", "Grote_Loods3.png", "Grote_Loods4.png", "Grote_Loods5.png", "Grote_Loods6.png"] // Voorbeeld met 2 foto's
+  },
+  { 
     name: "Envi Shell 03", 
     price: 35000, 
     floors: 1, 
@@ -135,10 +153,6 @@ const shellData = [
     images: ["Apartment Unfurnished Custom - 250K.png", "Apartment Unfurnished Custom - 250K (2).png", "Apartment Unfurnished Custom - 250K (3).png", "Apartment Unfurnished Custom - 250K (4).png", "Apartment Unfurnished Custom - 250K (5).png", "Apartment Unfurnished Custom - 250K (6).png", "Apartment Unfurnished Custom - 250K (7).png", "Apartment Unfurnished Custom - 250K (8).png", "Apartment Unfurnished Custom - 250K (9).png"] 
 
   },
-
-
-
-
   { 
     name: "Max Unfurnished Shell 4", 
     price: 350000, 

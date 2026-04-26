@@ -9,6 +9,9 @@ let applyDiscount = false;
 const starMultipliers = { 0: 0, 1: 0.05, 2: 0.15, 3: 0.25 };
 
 const shells = [
+  { label: "Kleine Loods", price: 35000, kilos: 600, floors: 1 },
+  { label: "Middel Loods", price: 75000, kilos: 600, floors: 1 },
+  { label: "Grote Loods", price: 150000, kilos: 600, floors: 2 },
   { label: "envi_shell_03_empty", price: 35000, kilos: 400, floors: 1 },
   { label: "envi_shell_02_empty", price: 40000, kilos: 400, floors: 1 },
   { label: "envi_shell_01_empty", price: 50000, kilos: 400, floors: 1 },
