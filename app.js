@@ -72,9 +72,9 @@ const shellData = [
   },
   { 
     name: "Grote Loods", 
-    price: 150000, 
+    price: 100000, 
     floors: 2, 
-    images: ["Grote_Loods1.png", "Grote_Loods2.png", "Grote_Loods3.png", "Grote_Loods4.png", "Grote_Loods5.png", "Grote_Loods6.png"] // Voorbeeld met 2 foto's
+    images: ["Grote_Loods1.png", "Grote_Loods2.png"] // Voorbeeld met 2 foto's
   },
   { 
     name: "Envi Shell 03", 
@@ -242,6 +242,36 @@ const shellData = [
     price: 1000000, 
     floors: 2, 
     images: ["Deluxe Housing 3 - 1M.png", "Deluxe Housing 3 - 1M (2).png"] 
+  }
+  { 
+    name: "Kleine woning", 
+    price: 55000, 
+    floors: 1, 
+    images: ["KleineWoning1.png", "KleineWoning2.png"] 
+  }
+  { 
+    name: "Huis", 
+    price: 400000, 
+    floors: 1, 
+    images: ["Huis1.png", "huis2.png"] 
+  }
+  { 
+    name: "Klein huisje", 
+    price: 250000, 
+    floors: 2, 
+    images: ["KleinHuisje1.png", "KleinHuisje2.png"] 
+  }
+  { 
+    name: "Huis 2", 
+    price: 350000, 
+    floors: 2, 
+    images: ["Huis2(1).png", "Huis2(2).png"] 
+  }
+  { 
+    name: "Villa", 
+    price: 800000, 
+    floors: 2, 
+    images: ["Villa1.png", "Villa2.png", "Villa3.png"] 
   }
 ];
 
